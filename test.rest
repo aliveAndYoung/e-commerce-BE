@@ -1,0 +1,28 @@
+### Variables
+@baseUrl = http://localhost:3030
+
+### Test Home Route
+GET {{baseUrl}}/
+Content-Type: application/json
+
+### login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "123456"
+}
+### register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "name": "Test User",
+    "email": "test@example.com",
+    "password": "123456"
+}
+
+### get me
+GET {{baseUrl}}/auth/getme
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGNkMTczMjhhNzAyZjE4NjRiYTEzYyIsImlhdCI6MTc0NTY3MTA0MCwiZXhwIjoxNzQ1NzU3NDQwfQ.zAHj_y1t43af0EXYWd035WyuXS-LY1NgjKL6a_-AvGc
