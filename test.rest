@@ -1,11 +1,14 @@
 ### Variables
 @baseUrl = http://localhost:3030
 
-### Test Home Route
+### Home Route
 GET {{baseUrl}}/
 Content-Type: application/json
 
-### login
+### Auth Routes
+
+### Login
+# @name login
 POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
@@ -13,16 +16,60 @@ Content-Type: application/json
     "email": "test@example.com",
     "password": "123456"
 }
-### register
+
+### Register
 POST {{baseUrl}}/auth/register
 Content-Type: application/json
 
 {
-    "name": "Test User",
-    "email": "test@example.com",
-    "password": "123456"
+    "name": "Test admin",
+    "email": "testAdmin@example.com",
+    "password": "1234567" ,
+    "role" : "admin"
 }
 
-### get me
+### Get Me (Requires Auth Token)
 GET {{baseUrl}}/auth/getme
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGNkMTczMjhhNzAyZjE4NjRiYTEzYyIsImlhdCI6MTc0NTY3MTA0MCwiZXhwIjoxNzQ1NzU3NDQwfQ.zAHj_y1t43af0EXYWd035WyuXS-LY1NgjKL6a_-AvGc
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+### Product Routes
+
+### Get All Products
+GET {{baseUrl}}/products/getAll
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+### Create Product (Admin)
+POST {{baseUrl}}/products
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+# Authorization: Bearer <your-admin-token-here>
+
+{
+    "name": "Test hoodie",
+    "description": "This is a test hoodie",
+    "price": 99.99,
+    "category": "hoodies",
+    "stock": 100,
+    "image": "https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/486320028_122124418892657729_2568162869516984531_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGXDWFztM8A6rfFoyvrLSpg0PJWLTE6KrLQ8lYtMToqsoMgNfi_6jMoPJdxTG3ymRQlHfm9oo_Pn1FLT5TvNO1z&_nc_ohc=-30opPN1qC4Q7kNvwHIcrZe&_nc_oc=AdlDFR0gfeTZaa71F0ImI9VjOCfvEtVjWjowHySQu4oADmpwOl0Xr3RdgrpbFvFg1OY&_nc_zt=23&_nc_ht=scontent.faly1-2.fna&_nc_gid=iZYLNAYV7icL4vECYD0HNg&oh=00_AfEzlCSR5Qs9BqM8TImqPJ8zXM5QnbOh5r3ViNOn8x-2Aw&oe=6812ECBF"
+}
+
+### Get Product by ID
+GET {{baseUrl}}/products/680d113ca757d69cbbee7f00
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+### Get Products by Category
+GET {{baseUrl}}/products/category/shirts
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+###edit a product 
+PUT {{baseUrl}}/products/680d113ca757d69cbbee7f00
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+    "price" : 555897
+}

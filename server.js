@@ -5,15 +5,19 @@ const express = require("express");
 const port = process.env.PORT || 3030;
 const app = express();
 const mongoose = require("mongoose");
+const morgan = require("morgan");
 const connectDB = require("./models/dbConnection");
 const homeRouter = require("./routes/home");
 const authRouter = require("./routes/auth");
-
+const productsRouter = require("./routes/products");
+const {protect} = require("./middleware/auth.js")
 app.use(express.json());
-
+app.use(morgan("tiny"));
 // Mount routers
 app.use("/", homeRouter);
 app.use("/auth", authRouter);
+app.use("/products", protect ,productsRouter);
+app.use((req, res) => res.status(404).send("404 Page not found"));
 
 const startServer = async () => {
     try {

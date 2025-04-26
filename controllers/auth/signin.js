@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../../models/users");
 
 // @desc    Sign in user
 // @route   POST /auth/login

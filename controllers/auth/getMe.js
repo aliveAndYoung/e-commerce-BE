@@ -1,4 +1,4 @@
-const users = require("../models/users");
+const users = require("../../models/users");
 
 // @desc    Get current logged in user
 // @route   GET /auth/getme

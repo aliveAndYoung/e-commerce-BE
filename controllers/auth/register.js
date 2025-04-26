@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../../models/users");
 
 // @desc    Register user
 // @route   POST /auth/register
@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
 
         // Create user
         const user = await User.create({
-            name,
+            name, 
             email,
             password,
         });
